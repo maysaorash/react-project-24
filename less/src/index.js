@@ -3,32 +3,25 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createStore,combineReducers } from "redux";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import userReducer from "./reducers/userReducer";
+import productReducer from "./reducers/productReducer";
 
 function reducer(state, action) {
-  console.log(action);
+  // console.log(action);
   if (action.type==='changeState') {
     return action.payload.newState;
   }
   return "State 123";
 }
 
-function userReducer(state='', action) {
-  switch (action.type) {
-    case 'userUpdate':
-      return action.payload;
-    default:
-      return state;
-  }
-}
-function productReducer(state=[], action) {
-  return state;
-}
-const rootReducer=combineReducers({
-  product:productReducer,
-  user:userReducer
-});
 
+const rootReducer = combineReducers({
+  product: productReducer,
+  user: userReducer
+}
+);
 // const store = createStore(reducer);
 const store = createStore(rootReducer,{
   product:[{name:'Sony',type:'GAME BOX'}],
@@ -42,7 +35,7 @@ const updateUserAction = {
 };
 store.dispatch(updateUserAction);
 
-console.log(store.getState());
+// console.log(store.getState());
 
 const action = {
   type: "changeState",
@@ -50,7 +43,7 @@ const action = {
 };
 
 store.subscribe(()=>{
-  console.log("Store update:",store.getState());
+  console.log("Store update:", store.getState());
 });
 
 store.dispatch(action);
@@ -61,7 +54,9 @@ console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
