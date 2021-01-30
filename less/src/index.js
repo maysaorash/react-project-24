@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createStore,combineReducers } from "redux";
 import { Provider } from "react-redux";
 import userReducer from "./reducers/userReducer";
-import productReducer from "./reducers/productReducer";
+import productReducer from "./reducers/productReducer"
 
 function reducer(state, action) {
   console.log(action);
